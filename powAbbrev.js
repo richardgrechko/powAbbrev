@@ -5,6 +5,7 @@ let abbreviations = [
 	["", "Ce", "Dc", "Tc", "Qdc", "Qnc", "Sxc", "Spc", "Otc", "Noc"],
 	["", "Mil", "Mic", "Nan", "Pic", "Fmt", "Att", "Zep", "Yoc", "Xon", "Vec", "Mec", "Duec", "Trec", "Ttrec", "Pntec", "Hxec", "Hpec", "Ocec", "Enec", "Ico", "MeIco", "DueIco", "TreIco", "TtrIco", "PntIco", "HxeIco", "HpeIco", "OceIco", "EneIco", "Tic", "MeTic", "DueTic", "TreTic", "TtrTic", "PntTic", "HxeTic", "HpeTic", "OceTic", "EneTic", "Ttc", "MeTtc", "DueTtc", "TreTtc", "TtrTtc", "PntTtc", "HxeTtc", "HpeTtc", "OceTtc", "EneTtc", "Pnc", "MePnc", "DuePnc", "TrePnc", "TtrPnc", "PntPnc", "HxePnc", "HpePnc", "OcePnc", "EnePnc", "Hxc", "MeHxc", "DueHxc", "TreHxc", "TtrHxc", "PntHxc", "HxeHxc", "HpeHxc", "OceHxc", "EneHxc", "Hpc", "MeHpc", "DueHpc", "TreHpc", "TtrHpc", "PntHpc", "HxeHpc", "HpeHpc", "OceHpc", "EneHpc", "Occ", "MeOcc", "DueOcc", "TreOcc", "TtrOcc", "PntOcc", "HxeOcc", "HpeOcc", "OceOcc", "EneOcc", "Enc", "MeEnc", "DueEnc", "TreEnc", "TtrEnc", "PntEnc", "HxeEnc", "HpeEnc", "OceEnc", "EneEnc"],
 ]
+let abbreviations2 = ["", "Mil-", "Mic-", "Nan-", "Pic-", "Fmt-", "Att-", "Zep-", "Yoc-", "Xon-", "Vec-", "Mec-", "Duec-", "Trec-", "Ttrec-", "Pntec-", "Hxec-", "Hpec-", "Ocec-", "Enec-", "Ico-", "MeIco-", "DueIco-", "TreIco-", "TtrIco-", "PntIco-", "HxeIco-", "HpeIco-", "OceIco-", "EneIco-", "Tic-", "MeTic-", "DueTic-", "TreTic-", "TtrTic-", "PntTic-", "HxeTic-", "HpeTic-", "OceTic-", "EneTic-", "Ttc-", "MeTtc-", "DueTtc-", "TreTtc-", "TtrTtc-", "PntTtc-", "HxeTtc-", "HpeTtc-", "OceTtc-", "EneTtc-", "Pnc-", "MePnc-", "DuePnc-", "TrePnc-", "TtrPnc-", "PntPnc-", "HxePnc-", "HpePnc-", "OcePnc-", "EnePnc-", "Hxc-", "MeHxc-", "DueHxc-", "TreHxc-", "TtrHxc-", "PntHxc-", "HxeHxc-", "HpeHxc-", "OceHxc-", "EneHxc-", "Hpc-", "MeHpc-", "DueHpc-", "TreHpc-", "TtrHpc-", "PntHpc-", "HxeHpc-", "HpeHpc-", "OceHpc-", "EneHpc-", "Occ-", "MeOcc-", "DueOcc-", "TreOcc-", "TtrOcc-", "PntOcc-", "HxeOcc-", "HpeOcc-", "OceOcc-", "EneOcc-", "Enc-", "MeEnc-", "DueEnc-", "TreEnc-", "TtrEnc-", "PntEnc-", "HxeEnc-", "HpeEnc-", "OceEnc-", "EneEnc-"]
 function abbrev(n)
 {
 	n = Math.floor(n)
@@ -19,6 +20,18 @@ function abbrev(n)
 	else if (n >= 0)
 	{
 		return abbreviations[0][n]
+	}
+}
+function t2abbrev(n)
+{
+	n = Math.floor(n)
+	if (n >= 1000)
+	{
+		return abbreviations[1][(n/1000**Math.floor(Math.log(n)/3))%10] + abbreviations[2][Math.floor((n/1000**Math.floor(Math.log(n)/3))/10)%10] + abbreviations[3][(Math.floor((n/1000**Math.floor(Math.log(n)/3))/100))] + ((n == 1000**Math.floor(Math.log(n)/3)/10) ? abbreviations[4][Math.floor(Math.log(n)/3)] : abbreviations2[Math.floor(Math.log(n)/3)]) + t2abbrev(n%(1000**Math.floor(Math.log(n)/3)))
+	}
+	else
+	{
+		return abbrev(n)
 	}
 }
 class powAbbrev
