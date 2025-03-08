@@ -22,12 +22,13 @@ function abbrev(n)
 		return abbreviations[0][n]
 	}
 }
-function t2abbrev(n)
+function t2abbrev(n,tier2)
 {
 	n = Math.floor(n)
-	if (n >= 1000)
+	tier2 = Math.floor(tier2)
+	if (tier2 == 1)
 	{
-		return abbreviations[1][(n/1000**Math.floor(Math.log(n)/3))%10] + abbreviations[2][Math.floor((n/1000**Math.floor(Math.log(n)/3))/10)%10] + abbreviations[3][Math.floor((n/1000**Math.floor(Math.log(n)/3))/100)] + ((n == 1000**Math.floor(Math.log(n)/3)/10) ? abbreviations[4][Math.floor(Math.log(n)/3)] : abbreviations2[Math.floor(Math.log(n)/3)]) + ((n < 1_000_000) ? abbrev(n%1000) : t2abbrev(n%(1000**Math.floor(Math.log(n)/3))))
+		return ((n == 1) ? "" : (abbreviations[1][n%10] + abbreviations[2][Math.floor(n/10)%10] + abbreviations[3][Math.floor(n/100)])) + ((n == 1000**Math.floor(Math.log10(n)/3)/10) ? abbreviations[4][tier2] : abbreviations2[tier2]) + ((tier2 < 1) ? abbrev(Math.floor(n*1000)%1000) : t2abbrev(Math.floor(n*1000)%1000,tier2-1)
 	}
 	else
 	{
@@ -43,7 +44,7 @@ class powAbbrev
 		this.pow = pow;
 		if (Math.log10(base)*pow >= 3)
 		{
-			this.result = ((Math.log10(base)*pow >= 1_000_000) ? "" : Math.pow(10,(Math.log10(this.base)*this.pow)%3).toFixed(3)) + t2abbrev((Math.log10(this.base)*this.pow/3)-1)
+			this.result = ((Math.log10(base)*pow >= 1_000_000) ? "" : Math.pow(10,(Math.log10(this.base)*this.pow)%3).toFixed(3)) + t2abbrev((Math.log10(this.base)*this.pow)/1000**Math.floor(Math.log10(Math.log10(this.base)*this.pow)/3),1000**Math.floor(Math.log10(Math.log10(this.base)*this.pow)/3))
 		}
 		else
 		{
