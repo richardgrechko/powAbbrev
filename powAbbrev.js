@@ -5,11 +5,11 @@ let abbreviations = [
 	["", "Ce", "Dc", "Tc", "Qdc", "Qnc", "Sxc", "Spc", "Otc", "Noc"],
 	["", "Mil", "Mic", "Nan", "Pic", "Fmt", "Att", "Zep", "Yoc", "Xon", "Vec", "Mec", "Duec", "Trec", "Ttrec", "Pntec", "Hxec", "Hpec", "Ocec", "Enec", "Ico", "MeIco", "DueIco", "TreIco", "TtrIco", "PntIco", "HxeIco", "HpeIco", "OceIco", "EneIco", "Tic", "MeTic", "DueTic", "TreTic", "TtrTic", "PntTic", "HxeTic", "HpeTic", "OceTic", "EneTic", "Ttc", "MeTtc", "DueTtc", "TreTtc", "TtrTtc", "PntTtc", "HxeTtc", "HpeTtc", "OceTtc", "EneTtc", "Pnc", "MePnc", "DuePnc", "TrePnc", "TtrPnc", "PntPnc", "HxePnc", "HpePnc", "OcePnc", "EnePnc", "Hxc", "MeHxc", "DueHxc", "TreHxc", "TtrHxc", "PntHxc", "HxeHxc", "HpeHxc", "OceHxc", "EneHxc", "Hpc", "MeHpc", "DueHpc", "TreHpc", "TtrHpc", "PntHpc", "HxeHpc", "HpeHpc", "OceHpc", "EneHpc", "Occ", "MeOcc", "DueOcc", "TreOcc", "TtrOcc", "PntOcc", "HxeOcc", "HpeOcc", "OceOcc", "EneOcc", "Enc", "MeEnc", "DueEnc", "TreEnc", "TtrEnc", "PntEnc", "HxeEnc", "HpeEnc", "OceEnc", "EneEnc", "Hct", "MeHct", "DueHct"],
 ]
-function t2abbrev(n,layer)
+function illionNames(n,layer)
 {
 	n = Math.floor(n)
 	layer = Math.floor(layer)
-	if (layer == 1)
+	if (layer >= 1)
 	{
 		return ((n == 1n) ? "" : (abbreviations[1][BigInt(n%10)] + abbreviations[2][BigInt(Math.floor(n/10)%10)] + abbreviations[3][BigInt(Math.floor(n/100))])) + abbreviations[4][BigInt(layer)]
 	}
@@ -25,23 +25,50 @@ function t2abbrev(n,layer)
 	{
 		return abbreviations[0][BigInt(n)]
 	}
+	else
+	{
+		return undefined
+	}
+}
+function illion(n)
+{
+	n = Math.floor(n)
+	if (n >= 1_000n)
+	{
+		return (n === Math.floor(n/1000**(Math.log10(n)/3))*(1000**(Math.log10(n)/3))) ? illionNames(n/1000**(Math.log10(n)/3),Math.log10(n)/3) : (illionNames(n/1000**(Math.log10(n)/3),Math.log10(n)/3) + "-" + illionNames((n/(1000**(Math.log10(n)/3)-1))%1000,(Math.log10(n)/3)-1))
+	}
+	else if (n >= 0n)
+	{
+		return illionNames(n,0)
+	}
+	else
+	{
+		return undefined
+	}
 }
 class powAbbrev
 {
 	constructor(base,pow)
 	{
-		this.result = 0n;
+		this.result = 0;
 		this.base = base;
 		this.pow = pow;
 		let n = Math.log10(base)*pow;
-		let m = Math.log10(n)/3;
+		if (n >= 3_000_000_003n)
+		{
+			this.result = illion((n/3)-1)
+		}
 		if (n >= 3n)
 		{
-			this.result = ((n >= 1_000_000n) ? "" : Math.pow(10,n%3).toFixed(3)) + ((n == Math.floor(n/1000**Math.floor(m))*(1000**Math.floor(m))) ? t2abbrev(n/1000**Math.floor(m),m) : (t2abbrev(n/1000**Math.floor(m),m)+"-"+t2abbrev((n/1000**Math.floor(m-1))%1000,m-1)))
+			this.result = Math.pow(10,n%3).toFixed(3) + illion((n/3)-1)
+		}
+		else if (n > -3n)
+		{
+			this.result = Math.pow(10,n).toFixed(3)
 		}
 		else
 		{
-			this.result = Math.pow(10,n).toFixed(3)
+			this.result = "1/" + Math.pow(10,(-n)%3).toFixed(3) + illion((-n/3)-1)
 		}
 		return this.result
 	}
