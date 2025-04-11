@@ -70,9 +70,13 @@ class powAbbrev
 		{
 			this.result = Math.pow(10,n).toFixed(3)
 		}
-		else
+		else if (n > -3_000_000_003)
 		{
 			this.result = "1/" + Math.pow(10,(-n)%3).toFixed(3) + illion((-n/3)-1)
+		}
+		else
+		{
+			this.result = "1/" + illion((-n/3)-1)
 		}
 		return this.result
 	}
