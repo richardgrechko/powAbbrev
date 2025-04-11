@@ -54,7 +54,7 @@ class powAbbrev
 		this.base = base;
 		this.pow = pow;
 		let n = Math.log10(base)*pow;
-		if (n >= 3_000_000_003n)
+		if (n >= 3_000_003n)
 		{
 			this.result = illion((n/3)-1)
 		}
