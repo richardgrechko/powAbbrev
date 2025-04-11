@@ -11,19 +11,19 @@ function illionNames(n,layer)
 	layer = Math.floor(layer)
 	if (layer >= 1)
 	{
-		return ((n == 1n) ? "" : (abbreviations[1][BigInt(n%10)] + abbreviations[2][BigInt(Math.floor(n/10)%10)] + abbreviations[3][BigInt(Math.floor(n/100))])) + abbreviations[4][BigInt(layer)]
+		return ((n == 1) ? "" : (abbreviations[1][n%10] + abbreviations[2][Math.floor(n/10)%10] + abbreviations[3][Math.floor(n/100)])) + abbreviations[4][layer]
 	}
 	else if (n >= 100)
 	{
-		return abbreviations[1][BigInt(n%10)] + abbreviations[2][BigInt(Math.floor(n/10)%10)] + abbreviations[3][BigInt(Math.floor(n/100))]
+		return abbreviations[1][n%10] + abbreviations[2][Math.floor(n/10)%10] + abbreviations[3][Math.floor(n/100)]
 	}
 	else if (n >= 10)
 	{
-		return abbreviations[1][BigInt(n%10)] + abbreviations[2][BigInt(Math.floor(n/10))]
+		return abbreviations[1][n%10] + abbreviations[2][Math.floor(n/10)%10]
 	}
 	else if (n >= 0)
 	{
-		return abbreviations[0][BigInt(n)]
+		return abbreviations[0][n]
 	}
 	else
 	{
@@ -54,15 +54,15 @@ class powAbbrev
 		this.base = base;
 		this.pow = pow;
 		let n = Math.log10(base)*pow;
-		if (n >= 3_000_003n)
+		if (n >= 3_000_003)
 		{
 			this.result = illion((n/3)-1)
 		}
-		if (n >= 3n)
+		if (n >= 3)
 		{
 			this.result = Math.pow(10,n%3).toFixed(3) + illion((n/3)-1)
 		}
-		else if (n > -3n)
+		else if (n > -3)
 		{
 			this.result = Math.pow(10,n).toFixed(3)
 		}
