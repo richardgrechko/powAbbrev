@@ -35,11 +35,11 @@ function illion(n)
 	n = Math.floor(n)
 	if (n >= 1_000_000)
 	{
-		return (n === Math.floor(n/(1000**(Math.log10(n)/3)))*(1000**(Math.log10(n)/3))) ? illionNames(n/(1000**(Math.log10(n)/3)),Math.log10(n)/3) : ((n === Math.floor(n/(1000**((Math.log10(n)/3)-1)))*(1000**((Math.log10(n)/3)-1))) ? (illionNames(n/(1000**(Math.log10(n)/3)),Math.log10(n)/3) + "-" + illionNames((n/(1000**(Math.log10(n)/3)-1))%1000,(Math.log10(n)/3)-1)) : (illionNames(n/(1000**(Math.log10(n)/3)),Math.log10(n)/3) + "-" + illionNames((n/(1000**(Math.log10(n)/3)-1))%1000,(Math.log10(n)/3)-1) + "-" + illionNames((n/(1000**(Math.log10(n)/3)-2))%1000,(Math.log10(n)/3)-2)))
+		return illionNames(n/(1000**(Math.log10(n)/3)),Math.log10(n)/3) + "-" + illionNames((n/(1000**(Math.log10(n)/3)-1))%1000,(Math.log10(n)/3)-1) + "-" + illionNames((n/(1000**(Math.log10(n)/3)-2))%1000,(Math.log10(n)/3)-2)
 	}
 	else if (n >= 1_000)
 	{
-		return (n === Math.floor(n/(1000**(Math.log10(n)/3)))*(1000**(Math.log10(n)/3))) ? illionNames(n/(1000**(Math.log10(n)/3)),Math.log10(n)/3) : (illionNames(n/(1000**(Math.log10(n)/3)),Math.log10(n)/3) + "-" + illionNames((n/(1000**(Math.log10(n)/3)-1))%1000,(Math.log10(n)/3)-1))
+		return illionNames(n/(1000**(Math.log10(n)/3)),Math.log10(n)/3) + "-" + illionNames((n/(1000**(Math.log10(n)/3)-1))%1000,(Math.log10(n)/3)-1)
 	}
 	else if (n >= 0)
 	{
