@@ -33,11 +33,15 @@ function illionNames(n,layer)
 function illion(n)
 {
 	n = Math.floor(n)
-	if (n >= 1_000n)
+	if (n >= 1_000_000)
+	{
+		return (n === Math.floor(n/(1000**(Math.log10(n)/3)))*(1000**(Math.log10(n)/3))) ? illionNames(n/(1000**(Math.log10(n)/3)),Math.log10(n)/3) : ((n === Math.floor(n/(1000**((Math.log10(n)/3)-1)))*(1000**((Math.log10(n)/3)-1))) ? (illionNames(n/(1000**(Math.log10(n)/3)),Math.log10(n)/3) + "-" + illionNames((n/(1000**(Math.log10(n)/3)-1))%1000,(Math.log10(n)/3)-1)) : (illionNames(n/(1000**(Math.log10(n)/3)),Math.log10(n)/3) + "-" + illionNames((n/(1000**(Math.log10(n)/3)-1))%1000,(Math.log10(n)/3)-1) + "-" + illionNames((n/(1000**(Math.log10(n)/3)-2))%1000,(Math.log10(n)/3)-2)))
+	}
+	else if (n >= 1_000)
 	{
 		return (n === Math.floor(n/(1000**(Math.log10(n)/3)))*(1000**(Math.log10(n)/3))) ? illionNames(n/(1000**(Math.log10(n)/3)),Math.log10(n)/3) : (illionNames(n/(1000**(Math.log10(n)/3)),Math.log10(n)/3) + "-" + illionNames((n/(1000**(Math.log10(n)/3)-1))%1000,(Math.log10(n)/3)-1))
 	}
-	else if (n >= 0n)
+	else if (n >= 0)
 	{
 		return illionNames(n,0)
 	}
@@ -54,7 +58,7 @@ class powAbbrev
 		this.base = base;
 		this.pow = pow;
 		let n = Math.log10(base)*pow;
-		if (n >= 3_000_003)
+		if (n >= 3_000_000_003)
 		{
 			this.result = illion((n/3)-1)
 		}
