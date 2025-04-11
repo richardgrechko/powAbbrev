@@ -39,7 +39,7 @@ function illion(n)
 	}
 	else if (n >= 1_000)
 	{
-		return illionNames(n/(1000**(Math.log10(n)/3)),Math.log10(n)/3) + "-" + illionNames((n/(1000**(Math.log10(n)/3)-1))%1000,(Math.log10(n)/3)-1)
+		return illionNames(n/1000,1) + "-" + illionNames(n%1000,0)
 	}
 	else if (n >= 0)
 	{
