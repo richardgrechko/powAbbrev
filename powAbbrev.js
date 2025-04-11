@@ -35,11 +35,11 @@ function illion(n)
 	n = Math.floor(n)
 	if (n >= 1_000_000)
 	{
-		return illionNames(n/(1000**Math.floor(Math.log10(n)/3)),Math.log10(n)/3) + "-" + illionNames((n/(1000**Math.floor((Math.log10(n)/3)-1)))%1000,(Math.log10(n)/3)-1) + "-" + illionNames((n/(1000**Math.floor((Math.log10(n)/3)-2)))%1000,(Math.log10(n)/3)-2)
+		return illionNames(n/(1000**Math.floor(Math.log10(n)/3)),Math.log10(n)/3) + ((Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-1)))%1000 == 0) ? "" : ("-" + illionNames((n/(1000**Math.floor((Math.log10(n)/3)-1)))%1000,(Math.log10(n)/3)-1))) + ((Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-2)))%1000 == 0) ? "" : ("-" + illionNames(Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-2)))%1000,(Math.log10(n)/3)-2)))
 	}
 	else if (n >= 1_000)
 	{
-		return illionNames(n/1000,1) + "-" + illionNames(n%1000,0)
+		return illionNames(n/(1000**Math.floor(Math.log10(n)/3)),Math.log10(n)/3) + ((Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-1)))%1000 == 0) ? "" : ("-" + illionNames((n/(1000**Math.floor((Math.log10(n)/3)-1)))%1000,(Math.log10(n)/3)-1)))
 	}
 	else if (n >= 0)
 	{
@@ -62,7 +62,7 @@ class powAbbrev
 		{
 			this.result = illion((n/3)-1)
 		}
-		if (n >= 3)
+		else if (n >= 3)
 		{
 			this.result = Math.pow(10,n%3).toFixed(3) + illion((n/3)-1)
 		}
