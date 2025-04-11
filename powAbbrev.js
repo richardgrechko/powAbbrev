@@ -35,7 +35,7 @@ function illion(n)
 	n = Math.floor(n)
 	if (n >= 1_000n)
 	{
-		return (n === Math.floor(n/1000**(Math.log10(n)/3))*(1000**(Math.log10(n)/3))) ? illionNames(n/(1000**(Math.log10(n)/3)-1),Math.log10(n)/3) : (illionNames(n/(1000**(Math.log10(n)/3)-1),Math.log10(n)/3) + "-" + illionNames((n/(1000**(Math.log10(n)/3)-2))%1000,(Math.log10(n)/3)-1))
+		return (n === Math.floor(n/(1000**(Math.log10(n)/3)))*(1000**(Math.log10(n)/3))) ? illionNames(n/(1000**(Math.log10(n)/3)),Math.log10(n)/3) : (illionNames(n/(1000**(Math.log10(n)/3)),Math.log10(n)/3) + "-" + illionNames((n/(1000**(Math.log10(n)/3)-1))%1000,(Math.log10(n)/3)-1))
 	}
 	else if (n >= 0n)
 	{
