@@ -68,7 +68,7 @@ class powAbbrev
 		}
 		else if (n > -3)
 		{
-			this.result = (Math.pow(10,n%3)-0.0005000000001)
+			this.result = (Math.pow(10,n)-0.0005000000001)
 		}
 		else if (n > -3_000_000_003)
 		{
