@@ -64,15 +64,15 @@ class powAbbrev
 		}
 		else if (n >= 3)
 		{
-			this.result = Math.pow(10,n%3).toFixed(3) + illion((n/3)-1)
+			this.result = (Math.pow(10,n%3)-0.0005).toFixed(3) + illion((n/3)-1)
 		}
 		else if (n > -3)
 		{
-			this.result = Math.pow(10,n).toFixed(3)
+			this.result = (Math.pow(10,n%3)-0.0005)
 		}
 		else if (n > -3_000_000_003)
 		{
-			this.result = "1/" + Math.pow(10,(-n)%3).toFixed(3) + illion((-n/3)-1)
+			this.result = "1/" + (Math.pow(10,(-n)%3)-0.0005).toFixed(3) + illion((-n/3)-1)
 		}
 		else
 		{
