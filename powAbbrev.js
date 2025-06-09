@@ -60,7 +60,7 @@ class powAbbrev
 		let n = Math.log10(base)*pow;
 		if (n == Infinity)
 		{
-			this.result = "∞"
+			this.result = "inf"
 		}
 		else if (n >= 3_000_000_003 && isFinite(n))
 		{
