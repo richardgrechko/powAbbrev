@@ -111,12 +111,12 @@ class IllionLayers
 {
 	constructor(opts)
 	{
-		let log = this.exp+Math.log10(this.mantissa)
 		this.result = 0;
 		this.mantissa = ((opts.mantissa > 10) ? 10 : Math.max(1,opts.mantissa)) ?? 1;
 		this.exp = opts.exponent ?? 1;
 		this.layer = opts.layer ?? 0;
 		this.sign = opts.sign ?? 1;
+		let log = this.exp+Math.log10(this.mantissa)
 		switch (this.layer) {
 			case 0:
 				if (this.sign == 0) {
