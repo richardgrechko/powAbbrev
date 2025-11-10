@@ -28,7 +28,7 @@ function illionNames(n,layer,tier=2)
 				(n >= 10) ?
 				((n > 10 && n < 20) ? (abbrev.tier2onesaboveten[n%10] + "c") : (abbrev.tier2ones[n%10] + abbrev.tier2tens[Math.floor(n/10)])) :
 					abbrev.tier2ones[n]
-		) + abbrev.tier3ones[layer%10] + abbrev.tier3tens[Math.floor(layer/10)%10] + abbrev.tier3hundreds[Math.floor(layer/100)]
+		)) + abbrev.tier3ones[layer%10] + abbrev.tier3tens[Math.floor(layer/10)%10] + abbrev.tier3hundreds[Math.floor(layer/100)]
 	}
 	else if (layer >= 100 && tier == 2)
 	{
