@@ -179,23 +179,15 @@ class IllionLayers
 					{
 						this.result = ((this.sign == -1) ? "-" : "") + "inf"
 					}
-					else if (log >= (3000+Math.log10(3)) && isFinite(log))
+					else if (log >= (300+Math.log10(3)) && isFinite(log))
 					{
 						this.result = ((this.sign == -1) ? "-" : "") + illion((log-Math.log10(3))/3,2)
 					}
-					else if (log < (3000+Math.log10(3)))
-					{
-						this.result = ((this.sign == -1) ? "-" : "") + illion(10**((log-Math.log10(3))/3)-1)
-					}
 					else if (log < 300+Math.log10(3) && log > -(300+Math.log10(3)))
 					{
-						this.result = new IllionLayers(10**((10**log)%1),Math.floor(10**(log-Math.log10(3))),1).result
+						this.result = new IllionLayers({ mantissa: 10**((10**log)%1), exponent: Math.floor(10**(log-Math.log10(3))), layer: 1 }).result
 					}
-					else if (log > -(3000+Math.log10(3)))
-					{
-						this.result = ((this.sign == -1) ? "-" : "") + "1/" + illion(10**(-(log-Math.log10(3))/3)-1)
-					}
-					else if (log <= -(3000+Math.log10(3)) && isFinite(log))
+					else if (log <= -(300+Math.log10(3)) && isFinite(log))
 					{
 						this.result = ((this.sign == -1) ? "-" : "") + "1/" + illion(-(log-Math.log10(3))/3,2)
 					}
