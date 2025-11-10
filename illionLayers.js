@@ -94,26 +94,27 @@ function illion(n,tier=1)
 			return undefined
 		}
 	} else {
-		if (n >= 1_000_000)
+		k = unfloored-Math.log10(3)
+		if (n >= (3_000_000+Math.log10(3))/3)
 		{
-			return illionNames(n/(1000**Math.floor(Math.log10(n)/3)),Math.log10(n)/3,3)
-				+ ((Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-1)))%1000 == 0) ? "" : ("-" + illionNames(Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-1)))%1000,(Math.log10(n)/3)-1,3)))
-				+ ((Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-2)))%1000 == 0) ? "" : ("-" + illionNames(Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-2)))%1000,(Math.log10(n)/3)-2,3)))
+			return illionNames(k/(1000**Math.floor(Math.log10(k)/3)),Math.log10(k)/3,3)
+				+ ((Math.floor(k/(1000**Math.floor((Math.log10(k)/3)-1)))%1000 == 0) ? "" : ("-" + illionNames(Math.floor(k/(1000**Math.floor((Math.log10(k)/3)-1)))%1000,(Math.log10(k)/3)-1,3)))
+				+ ((Math.floor(k/(1000**Math.floor((Math.log10(k)/3)-2)))%1000 == 0) ? "" : ("-" + illionNames(Math.floor(k/(1000**Math.floor((Math.log10(k)/3)-2)))%1000,(Math.log10(k)/3)-2,3)))
 		}
-		else if (n >= 1_000)
+		else if (n >= (3_000+Math.log10(3))/3)
 		{
-			return illionNames(n/(1000**Math.floor(Math.log10(n)/3)),Math.log10(n)/3,3)
-				+ ((Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-1)))%1000 == 0) ? "" : ("-" + illionNames((n/(1000**Math.floor((Math.log10(n)/3)-1)))%1000,(Math.log10(n)/3)-1,3)))
+			return illionNames(n/(1000**Math.floor(Math.log10(k)/3)),Math.log10(k)/3,3)
+				+ ((Math.floor(n/(1000**Math.floor((Math.log10(k)/3)-1)))%1000 == 0) ? "" : ("-" + illionNames((n/(1000**Math.floor((Math.log10(k)/3)-1)))%1000,(Math.log10(k)/3)-1,3)))
 		}
-		else if (n >= 300)
+		else if (n >= (300+Math.log10(3))/3)
 		{
-			return illionNames(1000**Math.floor((unfloored%3)/3),unfloored/3)
-				+ (((1000**(Math.floor((unfloored%3)/3)+1))%1000 == 0) ? "" : ("-" + illionNames(1000**(Math.floor((unfloored%3)/3)+1)%1000,(unfloored/3)-1)))
-				+ (((1000**(Math.floor((unfloored%3)/3)+2))%1000 == 0) ? "" : ("-" + illionNames(1000**(Math.floor((unfloored%3)/3)+2)%1000,(unfloored/3)-2)))
+			return illionNames(1000**Math.floor((k%3)/3),k/3)
+				+ (((1000**(Math.floor((k%3)/3)+1))%1000 == 0) ? "" : ("-" + illionNames(1000**(Math.floor((k%3)/3)+1)%1000,(k/3)-1)))
+				+ (((1000**(Math.floor((k%3)/3)+2))%1000 == 0) ? "" : ("-" + illionNames(1000**(Math.floor((k%3)/3)+2)%1000,(k/3)-2)))
 		}
 		else if (n >= 0)
 		{
-			return illion(10**unfloored,1)
+			return illion(1000**unfloored,1)
 		}
 	}
 }
@@ -180,23 +181,23 @@ class IllionLayers
 					}
 					else if (log >= (3000+Math.log10(3)) && isFinite(log))
 					{
-						this.result = ((this.sign == -1) ? "-" : "") + illion(log/3,2)
+						this.result = ((this.sign == -1) ? "-" : "") + illion((log-Math.log10(3))/3,2)
 					}
 					else if (log < (3000+Math.log10(3)))
 					{
-						this.result = ((this.sign == -1) ? "-" : "") + illion(10**(log/3)-1)
+						this.result = ((this.sign == -1) ? "-" : "") + illion(10**((log-Math.log10(3))/3)-1)
 					}
 					else if (log < 300+Math.log10(3) && log > -(300+Math.log10(3)))
 					{
-						this.result = new IllionLayers(10**((10**log)%1),Math.floor(10**log),1).result
+						this.result = new IllionLayers(10**((10**log)%1),Math.floor(10**(log-Math.log10(3))),1).result
 					}
 					else if (log > -(3000+Math.log10(3)))
 					{
-						this.result = ((this.sign == -1) ? "-" : "") + "1/" + illion(10**(-log/3)-1)
+						this.result = ((this.sign == -1) ? "-" : "") + "1/" + illion(10**(-(log-Math.log10(3))/3)-1)
 					}
 					else if (log <= -(3000+Math.log10(3)) && isFinite(log))
 					{
-						this.result = ((this.sign == -1) ? "-" : "") + "1/" + illion(-log/3,2)
+						this.result = ((this.sign == -1) ? "-" : "") + "1/" + illion(-(log-Math.log10(3))/3,2)
 					}
 					else if (log == -Infinity)
 					{
