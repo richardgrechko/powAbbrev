@@ -111,7 +111,7 @@ class IllionLayers
 {
 	constructor(opts)
 	{
-		log = this.exp+Math.log10(this.mantissa)
+		let log = this.exp+Math.log10(this.mantissa)
 		this.result = 0;
 		this.mantissa = ((opts.mantissa > 10) ? 10 : Math.max(1,opts.mantissa)) ?? 1;
 		this.exp = opts.exponent ?? 1;
