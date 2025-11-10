@@ -21,9 +21,13 @@ function illionNames(n,layer,tier=2)
 		return ((n == 1) ? "" : (
 			(n >= 100) ?
 			(
-				((n%100) > 10 && (n%100) < 20) ?
-				(abbrev.tier2onesaboveten[Math.floor(n/10)%10] + "c") :
-				(abbrev.tier2onesaboveten[Math.floor(n/10)%10] + abbrev.tier2tens[Math.floor(Math.floor(n/10)/10)])
+				(
+					((n%100) > 10 && (n%100) < 20) ?
+					(abbrev.tier2onesaboveten[Math.floor(n/10)%10] + "c") :
+					((n%100) < 10) ?
+					abbrev.tier2ones[Math.floor(n/10)%10] :
+					(abbrev.tier2onesaboveten[Math.floor(n/10)%10] + abbrev.tier2tens[Math.floor(Math.floor(n/10)/10)])
+				) + abbrev.tier2hundreds[Math.floor(n/100)]
 			) :
 				(n >= 10) ?
 				((n > 10 && n < 20) ? (abbrev.tier2onesaboveten[n%10] + "c") : (abbrev.tier2ones[n%10] + abbrev.tier2tens[Math.floor(n/10)])) :
@@ -36,6 +40,8 @@ function illionNames(n,layer,tier=2)
 			+ "(" + (
 					((layer%100) > 10 && (layer%100) < 20) ?
 					(abbrev.tier2onesaboveten[Math.floor(layer/10)%10] + "c") :
+					((layer%100) < 10) ?
+					abbrev.tier2ones[Math.floor(layer/10)%10] :
 					(abbrev.tier2onesaboveten[Math.floor(layer/10)%10] + abbrev.tier2tens[Math.floor(Math.floor(layer/10)/10)])
 					) + abbrev.tier2hundreds[Math.floor(layer/100)] + ")"
 	}
@@ -67,6 +73,7 @@ function illionNames(n,layer,tier=2)
 }
 function illion(n,tier=1)
 {
+	unfloored = n
 	n = Math.floor(n)
 	tier = Math.floor(tier)
 	if (tier == 1) {
@@ -89,21 +96,24 @@ function illion(n,tier=1)
 	} else {
 		if (n >= 1_000_000)
 		{
-			return illionNames(n/(1000**Math.floor(Math.log10(n)/3)),Math.log10(n)/3,3) + ((Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-1)))%1000 == 0) ? "" : ("-" + illionNames(Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-1)))%1000,(Math.log10(n)/3)-1,3))) + ((Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-2)))%1000 == 0) ? "" : ("-" + illionNames(Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-2)))%1000,(Math.log10(n)/3)-2,3)))
+			return illionNames(n/(1000**Math.floor(Math.log10(n)/3)),Math.log10(n)/3,3)
+				+ ((Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-1)))%1000 == 0) ? "" : ("-" + illionNames(Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-1)))%1000,(Math.log10(n)/3)-1,3)))
+				+ ((Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-2)))%1000 == 0) ? "" : ("-" + illionNames(Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-2)))%1000,(Math.log10(n)/3)-2,3)))
 		}
 		else if (n >= 1_000)
 		{
-			return illionNames(n/(1000**Math.floor(Math.log10(n)/3)),Math.log10(n)/3,3) + ((Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-1)))%1000 == 0) ? "" : ("-" + illionNames((n/(1000**Math.floor((Math.log10(n)/3)-1)))%1000,(Math.log10(n)/3)-1,3)))
+			return illionNames(n/(1000**Math.floor(Math.log10(n)/3)),Math.log10(n)/3,3)
+				+ ((Math.floor(n/(1000**Math.floor((Math.log10(n)/3)-1)))%1000 == 0) ? "" : ("-" + illionNames((n/(1000**Math.floor((Math.log10(n)/3)-1)))%1000,(Math.log10(n)/3)-1,3)))
 		}
 		else if (n >= 300)
 		{
-			return illionNames(1000**Math.floor((n%3)/3),n/3)
-				+ (((1000**(Math.floor((n%3)/3)+1))%1000 == 0) ? "" : ("-" + illionNames(1000**(Math.floor((n%3)/3)+1)%1000,(n/3)-1)))
-				+ (((1000**(Math.floor((n%3)/3)+2))%1000 == 0) ? "" : ("-" + illionNames(1000**(Math.floor((n%3)/3)+2)%1000,(n/3)-2)))
+			return illionNames(1000**Math.floor((unfloored%3)/3),unfloored/3)
+				+ (((1000**(Math.floor((unfloored%3)/3)+1))%1000 == 0) ? "" : ("-" + illionNames(1000**(Math.floor((unfloored%3)/3)+1)%1000,(unfloored/3)-1)))
+				+ (((1000**(Math.floor((unfloored%3)/3)+2))%1000 == 0) ? "" : ("-" + illionNames(1000**(Math.floor((unfloored%3)/3)+2)%1000,(unfloored/3)-2)))
 		}
 		else if (n >= 0)
 		{
-			return illion(10**n,1)
+			return illion(10**unfloored,1)
 		}
 	}
 }
