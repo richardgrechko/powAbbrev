@@ -190,11 +190,11 @@ class IllionLayers
 					{
 						this.result = new IllionLayers(10**((10**log)%1),Math.floor(10**log),1).result
 					}
-					else if (log > -(3000+Math.log10(3)) && isFinite(this.exp))
+					else if (log > -(3000+Math.log10(3)))
 					{
 						this.result = ((this.sign == -1) ? "-" : "") + "1/" + illion(10**(-log/3)-1)
 					}
-					else if (log <= -(3000+Math.log10(3)) && isFinite(this.exp))
+					else if (log <= -(3000+Math.log10(3)) && isFinite(log))
 					{
 						this.result = ((this.sign == -1) ? "-" : "") + "1/" + illion(-log/3,2)
 					}
@@ -204,6 +204,8 @@ class IllionLayers
 					}
 				}
 				break;
+			default:
+				this.result = new IllionLayers({mantissa: this.mantissa,exponent: this.exp,layer: 1}).result
 		}
 	}
 }
