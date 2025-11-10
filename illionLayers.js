@@ -113,7 +113,7 @@ class IllionLayers
 	{
 		this.result = 0;
 		this.mantissa = ((opts.mantissa > 10) ? 10 : Math.max(1,opts.mantissa)) ?? 1;
-		this.exp = opts.exp ?? 1;
+		this.exp = opts.exponent ?? 1;
 		this.layer = opts.layer ?? 0;
 		switch (this.layer) {
 			case 0:
@@ -137,15 +137,15 @@ class IllionLayers
 					}
 					else if (this.exp >= 3)
 					{
-						this.result = ((this.sign == -1) ? "-" : "") + (this.mantissa).toPrecision(3) + illion((this.exp/3)-1)
+						this.result = ((this.sign == -1) ? "-" : "") + (this.mantissa*10**Math.floor(this.exp%3)).toPrecision(3) + illion((this.exp/3)-1)
 					}
 					else if (this.exp > -3)
 					{
-						this.result = ((this.sign == -1) ? "-" : "") + this.mantissa.toPrecision(3)
+						this.result = ((this.sign == -1) ? "-" : "") + (this.mantissa*10**Math.floor(this.exp%3)).toPrecision(3)
 					}
 					else if (this.exp > -3_000_000_003)
 					{
-						this.result = ((this.sign == -1) ? "-" : "") + "1/" + this.mantissa.toPrecision(3) + illion((-this.exp/3)-1)
+						this.result = ((this.sign == -1) ? "-" : "") + "1/" + (this.mantissa*10**Math.floor(this.exp%3)).toPrecision(3) + illion((-this.exp/3)-1)
 					}
 					else if (isFinite(this.exp))
 					{
