@@ -111,58 +111,59 @@ class IllionLayers
 {
 	constructor(opts)
 	{
+		log = this.exp+Math.log10(this.mantissa)
 		this.result = 0;
 		this.mantissa = ((opts.mantissa > 10) ? 10 : Math.max(1,opts.mantissa)) ?? 1;
 		this.exp = opts.exponent ?? 1;
 		this.layer = opts.layer ?? 0;
+		this.sign = opts.sign ?? 1;
 		switch (this.layer) {
 			case 0:
 				if (this.sign == 0) {
 					this.result = "0.000"
 				} else {
-					this.result = new IllionLayers(10**(Math.log10(this.exp)%1),Math.floor(Math.log10(this.exp)),1).result
+					this.result = new IllionLayers({mantissa: 10**(Math.log10(this.exp)%1),exponent: Math.floor(Math.log10(this.exp)),layer: 1}).result
 				}
 				break;
 			case 1:
 				if (this.sign == 0) {
 					this.result = "0.000"
 				} else {
-					if (this.exp == Infinity)
+					if (log == Infinity)
 					{
 						this.result = ((this.sign == -1) ? "-" : "") + "inf"
 					}
-					else if (this.exp >= 3_000_000_003 && isFinite(this.exp))
+					else if (log >= 3_000_000_003 && isFinite(log))
 					{
-						this.result = ((this.sign == -1) ? "-" : "") + illion((this.exp/3)-1)
+						this.result = ((this.sign == -1) ? "-" : "") + illion((log/3)-1)
 					}
-					else if (this.exp >= 3)
+					else if (log >= 3)
 					{
-						this.result = ((this.sign == -1) ? "-" : "") + (this.mantissa*10**Math.floor(this.exp%3)).toPrecision(3) + illion((this.exp/3)-1)
+						this.result = ((this.sign == -1) ? "-" : "") + (10**Math.floor(log%3)).toPrecision(3) + illion((log/3)-1)
 					}
-					else if (this.exp > -3)
+					else if (log > -3)
 					{
-						this.result = ((this.sign == -1) ? "-" : "") + (this.mantissa*10**Math.floor(this.exp%3)).toPrecision(3)
+						this.result = ((this.sign == -1) ? "-" : "") + (10**Math.floor(log%3)).toPrecision(3)
 					}
-					else if (this.exp > -3_000_000_003)
+					else if (log > -3_000_000_003)
 					{
-						this.result = ((this.sign == -1) ? "-" : "") + "1/" + (this.mantissa*10**Math.floor(this.exp%3)).toPrecision(3) + illion((-this.exp/3)-1)
+						this.result = ((this.sign == -1) ? "-" : "") + "1/" + (10**Math.floor(log%3)).toPrecision(3) + illion((-log/3)-1)
 					}
-					else if (isFinite(this.exp))
+					else if (isFinite(log))
 					{
-						this.result = ((this.sign == -1) ? "-" : "") + "1/" + illion((-this.exp/3)-1)
+						this.result = ((this.sign == -1) ? "-" : "") + "1/" + illion((-log/3)-1)
 					}
-					else if (this.exp == -Infinity)
+					else if (log == -Infinity)
 					{
 						this.result = "0.000"
 					}
 				}
 				break;
 			case 2:
-				log = this.exp+Math.log10(this.mantissa)
 				if (this.sign == 0) {
 					this.result = "0.000"
 				} else {
-					if (this.exp == Infinity)
+					if (log == Infinity)
 					{
 						this.result = ((this.sign == -1) ? "-" : "") + "inf"
 					}
@@ -186,7 +187,7 @@ class IllionLayers
 					{
 						this.result = ((this.sign == -1) ? "-" : "") + "1/" + illion(-this.exp/3,2)
 					}
-					else if (this.exp == -Infinity)
+					else if (log == -Infinity)
 					{
 						this.result = "0.000"
 					}
