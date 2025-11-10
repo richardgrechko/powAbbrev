@@ -169,6 +169,7 @@ class IllionLayers
 					}
 				}
 				break;
+
 			case 2:
 				if (this.sign == 0) {
 					this.result = "0.000"
@@ -177,13 +178,13 @@ class IllionLayers
 					{
 						this.result = ((this.sign == -1) ? "-" : "") + "inf"
 					}
-					else if (log >= (3000+Math.log10(3)) && isFinite(this.exp))
+					else if (log >= (3000+Math.log10(3)) && isFinite(log))
 					{
-						this.result = ((this.sign == -1) ? "-" : "") + illion(this.exp/3,2)
+						this.result = ((this.sign == -1) ? "-" : "") + illion(log/3,2)
 					}
 					else if (log < (3000+Math.log10(3)))
 					{
-						this.result = ((this.sign == -1) ? "-" : "") + illion(10**(this.exp/3)-1)
+						this.result = ((this.sign == -1) ? "-" : "") + illion(10**(log/3)-1)
 					}
 					else if (log < 300+Math.log10(3) && log > -(300+Math.log10(3)))
 					{
@@ -191,11 +192,11 @@ class IllionLayers
 					}
 					else if (log > -(3000+Math.log10(3)) && isFinite(this.exp))
 					{
-						this.result = ((this.sign == -1) ? "-" : "") + "1/" + illion(10**(-this.exp/3)-1)
+						this.result = ((this.sign == -1) ? "-" : "") + "1/" + illion(10**(-log/3)-1)
 					}
 					else if (log <= -(3000+Math.log10(3)) && isFinite(this.exp))
 					{
-						this.result = ((this.sign == -1) ? "-" : "") + "1/" + illion(-this.exp/3,2)
+						this.result = ((this.sign == -1) ? "-" : "") + "1/" + illion(-log/3,2)
 					}
 					else if (log == -Infinity)
 					{
